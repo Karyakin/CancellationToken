@@ -1,4 +1,4 @@
-namespace WebApplication8;
+namespace CancellationToken;
 
 public class CdnHostedService : IHostedService
 {
@@ -26,7 +26,7 @@ public class CdnHostedService : IHostedService
         }
     }
 
-    public Task StartAsync(CancellationToken cancellationToken)
+    public Task StartAsync(System.Threading.CancellationToken cancellationToken)
     {
         _combinedCts = CancellationTokenSource.CreateLinkedTokenSource(
             cancellationToken,
@@ -36,7 +36,7 @@ public class CdnHostedService : IHostedService
         return Task.CompletedTask;
     }
 
-    private async Task ExecuteAsync(CancellationToken stoppingToken)
+    private async Task ExecuteAsync(System.Threading.CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -49,7 +49,7 @@ public class CdnHostedService : IHostedService
         Console.WriteLine("Фоновая задача завершена.");
     }
 
-    public async Task StopAsync(CancellationToken cancellationToken)
+    public async Task StopAsync(System.Threading.CancellationToken cancellationToken)
     {
         if (_executingTask == null)
         {

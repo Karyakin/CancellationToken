@@ -487,11 +487,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/dmitrijkarakin/Desktop/CancellationToken/WebApplication8/WebApplication8.csproj",
-      "projectName": "WebApplication8",
-      "projectPath": "/Users/dmitrijkarakin/Desktop/CancellationToken/WebApplication8/WebApplication8.csproj",
+      "projectUniqueName": "/Users/dmitrijkarakin/Desktop/CancellationToken/CancellationToken/CancellationToken.csproj",
+      "projectName": "CancellationToken",
+      "projectPath": "/Users/dmitrijkarakin/Desktop/CancellationToken/CancellationToken/CancellationToken.csproj",
       "packagesPath": "/Users/dmitrijkarakin/.nuget/packages/",
-      "outputPath": "/Users/dmitrijkarakin/Desktop/CancellationToken/WebApplication8/obj/",
+      "outputPath": "/Users/dmitrijkarakin/Desktop/CancellationToken/CancellationToken/obj/",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
       "configFilePaths": [

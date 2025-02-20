@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S1pZZHfuTi8=",
+  "dgSpecHash": "GycWghzJNls=",
   "success": true,
-  "projectFilePath": "/Users/dmitrijkarakin/Desktop/CancellationToken/WebApplication8/WebApplication8.csproj",
+  "projectFilePath": "/Users/dmitrijkarakin/Desktop/CancellationToken/CancellationToken/CancellationToken.csproj",
   "expectedPackageFiles": [
     "/Users/dmitrijkarakin/.nuget/packages/microsoft.aspnetcore.openapi/8.0.11/microsoft.aspnetcore.openapi.8.0.11.nupkg.sha512",
     "/Users/dmitrijkarakin/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
