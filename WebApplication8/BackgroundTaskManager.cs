@@ -18,6 +18,7 @@ public interface IBackgroundTaskManager
     Task RestartAsync(CancellationToken cancellationToken = default);
     bool TryDequeue(out string message);
     CancellationToken GetCancellationToken();
+    event Action CancellationTokenUpdated;
 }
 
 public class BackgroundTaskManager : IBackgroundTaskManager
@@ -36,14 +37,7 @@ public class BackgroundTaskManager : IBackgroundTaskManager
         _cancellationTokenSource.Cancel();
         await Task.CompletedTask; // Имитация асинхронной операции
     }
-
-    public async Task RestartAsync(CancellationToken cancellationToken = default)
-    {
-        // Сбрасываем CancellationTokenSource
-        _cancellationTokenSource.Dispose();
-        _cancellationTokenSource = new CancellationTokenSource();
-        await Task.CompletedTask; // Имитация асинхронной операции
-    }
+    
 
     public bool TryDequeue(out string message)
     {
@@ -53,5 +47,15 @@ public class BackgroundTaskManager : IBackgroundTaskManager
     public CancellationToken GetCancellationToken()
     {
         return _cancellationTokenSource.Token;
+    }
+    
+    public event Action CancellationTokenUpdated;
+
+    public async Task RestartAsync(CancellationToken cancellationToken = default)
+    {
+        _cancellationTokenSource.Dispose();
+        _cancellationTokenSource = new CancellationTokenSource();
+        CancellationTokenUpdated?.Invoke(); // Уведомляем подписчиков о новом токене
+        await Task.CompletedTask;
     }
 }

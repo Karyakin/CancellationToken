@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace WebApplication8;
 
@@ -14,8 +12,8 @@ public class TestController : ControllerBase
         _backgroundTaskManager = backgroundTaskManager;
     }
 
-    [HttpGet("/test")]
-    public async Task<IActionResult> GetToken(string token, CancellationToken cancellationToken)
+    [HttpGet("/EnqueueMessage")]
+    public async Task<IActionResult> EnqueueMessage(string token, CancellationToken cancellationToken)
     {
         await _backgroundTaskManager.EnqueueMessageAsync(token, cancellationToken);
         return Ok("Сообщение добавлено в очередь!");

@@ -2,23 +2,36 @@ namespace WebApplication8;
 
 public class CdnHostedService : IHostedService
 {
-    private readonly IBackgroundTaskManager _backgroundTaskManager; // Используем интерфейс
+    private readonly IBackgroundTaskManager _backgroundTaskManager;
     private Task _executingTask;
     private CancellationTokenSource _combinedCts;
 
-    public CdnHostedService(IBackgroundTaskManager backgroundTaskManager) // Принимаем интерфейс
+    public CdnHostedService(IBackgroundTaskManager backgroundTaskManager)
     {
         _backgroundTaskManager = backgroundTaskManager;
+        _backgroundTaskManager.CancellationTokenUpdated += OnCancellationTokenUpdated;
+    }
+
+    private void OnCancellationTokenUpdated()
+    {
+        // Обновляем комбинированный токен отмены
+        _combinedCts = CancellationTokenSource.CreateLinkedTokenSource(
+            _backgroundTaskManager.GetCancellationToken()
+        );
+
+        // Если задача уже завершилась, перезапускаем её
+        if (_executingTask?.IsCompleted == true)
+        {
+            _executingTask = ExecuteAsync(_combinedCts.Token);
+        }
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        // Создаем комбинированный CancellationToken
         _combinedCts = CancellationTokenSource.CreateLinkedTokenSource(
             cancellationToken,
             _backgroundTaskManager.GetCancellationToken()
         );
-
         _executingTask = ExecuteAsync(_combinedCts.Token);
         return Task.CompletedTask;
     }
@@ -31,10 +44,8 @@ public class CdnHostedService : IHostedService
             {
                 Console.WriteLine($"Сообщение из очереди: {message}");
             }
-
-            await Task.Delay(10000, stoppingToken); // Асинхронная задержка
+            await Task.Delay(5000, stoppingToken); // Асинхронная задержка
         }
-
         Console.WriteLine("Фоновая задача завершена.");
     }
 
@@ -44,7 +55,6 @@ public class CdnHostedService : IHostedService
         {
             return;
         }
-
         try
         {
             // Отправляем сигнал отмены
